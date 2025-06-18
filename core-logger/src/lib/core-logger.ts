@@ -12,7 +12,7 @@ const defaultLog = loggerFactory.createLogger({
   severity: __DEV__ ? 'debug' : 'warn',
   transport: consoleTransport,
   transportOptions: {},
-  enabledExtensions: ['TASK_DEMO'],
+  enabledExtensions: ['SPORTIFY_APP'],
   async: true,
   dateFormat: 'time',
   printLevel: true,
@@ -21,5 +21,4 @@ const defaultLog = loggerFactory.createLogger({
   enabled: true,
 });
 
-export const log = defaultLog.extend('TASK_DEMO');
-
+export const log = defaultLog.extend('SPORTIFY_APP');

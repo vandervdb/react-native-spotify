@@ -18,7 +18,7 @@ export const App = () => {
   const [whatsNextYCoord, setWhatsNextYCoord] = useState<number>(0);
   const scrollViewRef = useRef<null | ScrollView>(null);
   const token = authStore.token;
-  log.debug('token de ouf ', token);
+  log.debug('token de ouf: ', token);
 
   return (
     <>

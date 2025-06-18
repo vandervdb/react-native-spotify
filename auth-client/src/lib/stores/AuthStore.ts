@@ -4,6 +4,7 @@ import { KeyChainService, TokenData } from '@react-native-spotify/keychain-servi
 import { fetchAccessToken } from '../api/authClient.js';
 
 export class AuthStore {
+  private tokenRefreshPromise: Promise<void> | null = null;
   authParams: TokenData = { token: '', expiresAt: 0 };
   loading = false;
   error: Error | null = null;
@@ -27,29 +28,41 @@ export class AuthStore {
   }
 
   async loadToken(): Promise<void> {
-    runInAction(() => {
-      this.loading = true;
-      this.error = null;
-    });
+    if (this.tokenRefreshPromise) {
+      log.debug('Token déjà en cours de chargement, on attend la promesse...');
+      return this.tokenRefreshPromise;
+    }
 
-    try {
-      const stored = await KeyChainService.token.get();
-      if (stored && stored.token && stored.expiresAt > Date.now()) {
+    this.tokenRefreshPromise = (async () => {
+      runInAction(() => {
+        this.loading = true;
+        this.error = null;
+      });
+
+      try {
+        const stored = await KeyChainService.token.get();
+        if (stored && stored.token && stored.expiresAt > Date.now()) {
+          runInAction(() => {
+            this.authParams = stored;
+          });
+          log.debug('Token valide chargé depuis SecureStorage');
+        } else {
+          await this.refreshAccessToken();
+        }
+      } catch (e) {
         runInAction(() => {
-          this.authParams = stored;
+          this.error = e instanceof Error ? e : new Error('Erreur inconnue');
+          log.error('loadToken error:', e);
+        });
+      } finally {
+        runInAction(() => {
           this.loading = false;
         });
-        log.debug('Token valide chargé depuis SecureStorage');
-      } else {
-        await this.refreshAccessToken();
+        this.tokenRefreshPromise = null;
       }
-    } catch (e) {
-      runInAction(() => {
-        this.error = e instanceof Error ? e : new Error('Erreur inconnue');
-        this.loading = false;
-      });
-      log.error('loadToken error:', e);
-    }
+    })();
+
+    return this.tokenRefreshPromise;
   }
 
   async refreshAccessToken(): Promise<void> {
@@ -82,6 +95,12 @@ export class AuthStore {
       });
       log.error('refreshAccessToken error:', e);
     }
+  }
+}
+
+export async function ensureTokenReady(): Promise<void> {
+  if (!authStore.isTokenValid) {
+    await authStore.loadToken();
   }
 }
 
