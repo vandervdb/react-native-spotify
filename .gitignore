@@ -1,28 +1,15 @@
-# === 📁 OUTPUT / CACHE ===
-dist/
-tmp/
-out-tsc/
-coverage/
-test-output/
-.nx/cache/
-.nx/workspace-data/
+# See https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
 
-# === 📦 DEPENDENCIES ===
-node_modules/
-**/Pods/
-**/vendor/bundle/
-**/.turbo/
-.pnpm-debug.log
-npm-debug.log
-yarn-error.log
+# compiled output
+dist
+tmp
+out-tsc
 
-# === 💻 IDEs & EDITORS ===
-.idea/
-.vscode/
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
+# dependencies
+node_modules
+
+# IDEs and editors
+/.idea
 .project
 .classpath
 .c9/
@@ -30,89 +17,103 @@ yarn-error.log
 .settings/
 *.sublime-workspace
 
-# === 🍏 macOS SYSTEM FILES ===
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+yarn-error.log
+testem.log
+/typings
+
+# System Files
 .DS_Store
 Thumbs.db
 
-# === 🧪 TESTING ===
-testem.log
-/typings
-/coverage
+.nx/cache
+.nx/workspace-data
+.cursor/rules/nx-rules.mdc
+.github/instructions/nx.instructions.md
 
-# === ⚙️ REACT NATIVE ===
-*.jsbundle
-*.hprof
-*.keystore
-**/.xcode.env.local
-*.ipa
+# React Native
+
+# OSX
+#
+.DS_Store
+
+# Xcode
+#
 build/
-android/.gradle/
-android/.idea/
-android/local.properties
-android/app/*.iml
-android/*.iml
-android/.cxx/
-ios/build/
-ios/DerivedData/
-ios/*.xcuserstate
-ios/*.xccheckout
-ios/*.pbxuser
-ios/*.mode1v3
-ios/*.mode2v3
-ios/*.perspectivev3
-ios/xcuserdata/
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata
+*.xccheckout
+*.moved-aside
+DerivedData
+*.hmap
+*.ipa
+*.xcuserstate
+**/.xcode.env.local
 
-# === 🚀 FASTLANE ===
+# Android/IntelliJ
+#
+build/
+.idea
+.gradle
+local.properties
+*.iml
+*.hprof
+.cxx/
+*.keystore
+!debug.keystore
+
+# node.js
+#
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# fastlane
+#
+# It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the
+# screenshots whenever they are needed.
+# For more information about the recommended setup visit:
+# https://docs.fastlane.tools/best-practices/source-control/
+
 **/fastlane/report.xml
 **/fastlane/Preview.html
 **/fastlane/screenshots
 **/fastlane/test_output
 
-# === 🧪 VITE / VITEST  ===
-vite.config.*.timestamp*
-vitest.config.*.timestamp*
+# Bundle artifact
+*.jsbundle
 
-# === 🔁 NX PLUGIN UTILS ===
-.cursor/rules/nx-rules.mdc
-.github/instructions/nx.instructions.md
-## Nested node_modules
+# Ruby / CocoaPods
+**/Pods/
+**/vendor/bundle/
 
-node_modules/
-## Nested node_modules
+# Temporary files created by Metro to check the health of the file watcher
+.metro-health-check*
 
-node_modules/
-## Nested node_modules
+# testing
+/coverage
 
-node_modules/
-## Nested node_modules
-
-node_modules/
-## Nested node_modules
-
-node_modules/
-
-# Expo
-node_modules/
-.expo/
-.yarn/
-dist/
-npm-debug.*
-*.jks
-*.p8
-*.p12
-*.key
-*.mobileprovision
-*.orig.*
-web-build/
-cache/
-## Nested node_modules
-
-node_modules/
-## Nested node_modules
-
-node_modules/
-## Nested node_modules
-
-node_modules/
 
 test-output
+
+vite.config.*.timestamp*
+vitest.config.*.timestamp*
