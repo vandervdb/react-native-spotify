@@ -1,82 +1,137 @@
-# ReactNativeSpotify
+# 🎧 react-native-spotify
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+<p align="center">
+  <strong>Application Spotify en React Native avec architecture Nx modulaire</strong><br />
+  <em>Scalable, typée, modulaire, prête pour la prod.</em>
+</p>
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is almost ready ✨.
+<p align="center">
+  <img alt="tech" src="https://img.shields.io/badge/tech-react_native-blue?style=flat-square" />
+  <img alt="nx" src="https://img.shields.io/badge/monorepo-nx-blueviolet?style=flat-square" />
+  <img alt="license" src="https://img.shields.io/badge/license-MIT-green?style=flat-square" />
+</p>
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/nx-api/react-native?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+---
 
-## Finish your CI setup
+## 🚀 Aperçu
 
-[Click here to finish setting up your workspace!](https://cloud.nx.app/connect/PiNbR9Q40S)
+Projet mobile construit avec :
 
+- ⚛️ **React Native** (Metro)
+- 🧱 **Nx Monorepo**
+- 🔐 SecureStorage (iOS/Android)
+- ⚙️ Multi-libs modulaire (`auth-client`, `core-config`, etc.)
+- 📄 Chargement d'environnements `.env` avec typage
+- 🧠 Scalable & maintenable pour équipe ou freelance
 
-## Run tasks
+---
 
-To run the dev server for your app, use:
+## 📁 Structure du monorepo
 
-```sh
-npx nx serve spotify-app
+```bash
+react-native-spotify/
+├── apps/
+│   └── spotify-app/         # App principale React Native
+├── auth-client/             # Authentification Spotify OAuth
+├── core-config/             # Accès typé aux variables d'env
+├── core-constants/          # Constantes globales (Spotify, tokens, services)
+├── core-logger/             # Logger partagé (react-native-logs)
+├── http-client/             # Abstraction Axios
+├── keychain-service/        # Accès Keychain / SecureStorage
+├── player-state/            # Centralisation état du lecteur Spotify
 ```
 
-To create a production bundle:
+---
 
-```sh
-npx nx build spotify-app
+## 🛠️ Installation & lancement
+
+```bash
+yarn install
+
+# Lancer l'app mobile
+nx run spotify-app:start
+
+# (optionnel) reset cache Metro
+nx run spotify-app:start --reset-cache
 ```
 
-To see all available targets to run for a project, run:
+---
 
-```sh
-npx nx show project spotify-app
+## ⚙️ Configuration `.env`
+
+Le projet supporte plusieurs environnements :
+
+```
+.env.development
+.env.production
 ```
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+Variables attendues (typage automatique via `env.d.ts`) :
 
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Add new projects
-
-While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
-
-Use the plugin's generator to create new projects.
-
-To generate a new application, use:
-
-```sh
-npx nx g @nx/react-native:app demo
+```env
+SPOTIFY_CLIENT_ID=your-client-id
+SPOTIFY_CLIENT_SECRET=your-secret
+REDIRECT_URI=org-vander-myspotifyapp://callback
 ```
 
-To generate a new library, use:
+---
 
-```sh
-npx nx g @nx/react:lib mylib
+## 🧱 Ajout de librairie partagée
+
+```bash
+nx g @nx/js:lib nom-librairie
 ```
 
-You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
+Ajoute ensuite un `babel.config.js` dans la lib :
 
-[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+```js
+// babel.config.js dans libs/ma-lib
+module.exports = require('../../babel.shared');
+```
+
+---
+
+## 🧪 Tests (à venir)
+
+> Configuration Jest modulaire prévue pour chaque lib.
+
+---
+
+<details>
+<summary>📦 Libs & Modules utilisés</summary>
 
 
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+| Librairie          | Description                                         |
+| ------------------ | --------------------------------------------------- |
+| `auth-client`      | Gestion OAuth2 Spotify + token/refresh              |
+| `core-config`      | Fonctions`getEnv()` et typage .env                  |
+| `core-constants`   | Constantes partagées (services, endpoints, scopes) |
+| `core-logger`      | Abstraction`react-native-logs`                      |
+| `http-client`      | Abstraction d'Axios (api service + interceptors)    |
+| `keychain-service` | Abstraction Keychain/SecureStorage                  |
+| `player-state`     | Gestion centralisée état de lecture Spotify       |
 
-## Install Nx Console
+</details>
 
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
+---
 
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+## ✨ À venir
 
-## Useful links
+- 🎧 Intégration Spotify App Remote SDK
+- 🔄 Refresh token automatique
+- 🧪 Tests unitaires + e2e
+- 📲 Animation du MiniPlayer
+- 🌐 Mode offline + cache local
 
-Learn more:
+---
 
-- [Learn more about this workspace setup](https://nx.dev/nx-api/react-native?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+## 👨‍💻 Auteur
 
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+Développé par **Arnaud Vanderbecq**
+[GitHub](https://github.com/arnaudvander) · [LinkedIn](https://linkedin.com/in/avanderbecq)
+
+---
+
+## 🪪 Licence
+
+MIT

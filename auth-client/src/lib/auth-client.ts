@@ -1,3 +1,1 @@
-export function authClient(): string {
-  return 'auth-client';
-}
+export * from '../lib/stores/AuthStore.js';

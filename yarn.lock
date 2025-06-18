@@ -4348,6 +4348,13 @@ babel-plugin-const-enum@^1.0.1:
     "@babel/plugin-syntax-typescript" "^7.3.3"
     "@babel/traverse" "^7.16.0"
 
+babel-plugin-dotenv-import@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/babel-plugin-dotenv-import/-/babel-plugin-dotenv-import-3.0.1.tgz#d03498ddae51d58d5899e5f4b37e8a2d33925982"
+  integrity sha512-kW01sNKBc3maCTQZN7LhHf9YtwQUXv/NPLhPHu6Yuxiwn+C0AOFBNE4BfRSmft2NFjfqtpb6HUalJe9Z5DQENA==
+  dependencies:
+    dotenv "^16.0.3"
+
 babel-plugin-istanbul@^6.1.1:
   version "6.1.1"
   resolved "https://registry.yarnpkg.com/babel-plugin-istanbul/-/babel-plugin-istanbul-6.1.1.tgz#fa88ec59232fd9b4e36dbbc540a8ec9a9b47da73"
@@ -5404,7 +5411,7 @@ dotenv-expand@~11.0.6:
   dependencies:
     dotenv "^16.4.5"
 
-dotenv@^16.4.5:
+dotenv@^16.0.3, dotenv@^16.4.5:
   version "16.5.0"
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-16.5.0.tgz#092b49f25f808f020050051d1ff258e404c78692"
   integrity sha512-m/C+AwOAr9/W1UOIZUo232ejMNnJAJtYQjUbHoNTBNTJSvqzzDh7vnrei3o3r3m9blf6ZoDkvcw0VmozNRFJxg==

@@ -1,4 +1,4 @@
-export const SpotifyConstants = {
+export const API_CONSTANTS = {
   REQUEST_CODE: 22114458,
   REDIRECT_URI: 'org-vander-myspotifyapp://callback',
 

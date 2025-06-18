@@ -14,7 +14,19 @@
   "include": ["src/**/*.ts"],
   "references": [
     {
+      "path": "../keychain-service/tsconfig.lib.json"
+    },
+    {
+      "path": "../core-constants/tsconfig.lib.json"
+    },
+    {
+      "path": "../http-client/tsconfig.lib.json"
+    },
+    {
       "path": "../core-logger/tsconfig.lib.json"
+    },
+    {
+      "path": "../core-config/tsconfig.lib.json"
     }
   ],
   "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"]

@@ -17,5 +17,10 @@
     "strict": true,
     "target": "es2022",
     "customConditions": ["development"]
-  }
+  },
+  "include": [
+    "env.d.ts",
+//    "**/*.ts",
+//    "**/*.tsx"
+  ]
 }

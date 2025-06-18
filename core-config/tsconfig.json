@@ -4,16 +4,7 @@
   "include": [],
   "references": [
     {
-      "path": "../core-logger"
-    },
-    {
-      "path": "../core-constants"
-    },
-    {
       "path": "./tsconfig.lib.json"
-    },
-    {
-      "path": "./tsconfig.spec.json"
     }
   ]
 }

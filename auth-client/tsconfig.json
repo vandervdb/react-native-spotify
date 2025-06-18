@@ -4,7 +4,19 @@
   "include": [],
   "references": [
     {
+      "path": "../keychain-service"
+    },
+    {
+      "path": "../core-constants"
+    },
+    {
+      "path": "../http-client"
+    },
+    {
       "path": "../core-logger"
+    },
+    {
+      "path": "../core-config"
     },
     {
       "path": "./tsconfig.lib.json"
