@@ -100,16 +100,15 @@ module.exports = require('../../babel.shared');
 <details>
 <summary>📦 Libs & Modules utilisés</summary>
 
-
-| Librairie          | Description                                         |
-| ------------------ | --------------------------------------------------- |
-| `auth-client`      | Gestion OAuth2 Spotify + token/refresh              |
-| `core-config`      | Fonctions`getEnv()` et typage .env                  |
+| Librairie          | Description                                        |
+|--------------------|----------------------------------------------------|
+| `auth-client`      | Gestion OAuth2 Spotify + token/refresh             |
+| `core-config`      | Fonctions`getEnv()` et typage .env                 |
 | `core-constants`   | Constantes partagées (services, endpoints, scopes) |
-| `core-logger`      | Abstraction`react-native-logs`                      |
-| `http-client`      | Abstraction d'Axios (api service + interceptors)    |
-| `keychain-service` | Abstraction Keychain/SecureStorage                  |
-| `player-state`     | Gestion centralisée état de lecture Spotify       |
+| `core-logger`      | Abstraction`react-native-logs`                     |
+| `http-client`      | Abstraction d'Axios (api service + interceptors)   |
+| `keychain-service` | Abstraction Keychain/SecureStorage                 |
+| `player-state`     | Gestion centralisée état de lecture Spotify        |
 
 </details>
 
@@ -128,7 +127,7 @@ module.exports = require('../../babel.shared');
 ## 👨‍💻 Auteur
 
 Développé par **Arnaud Vanderbecq**
-[GitHub](https://github.com/arnaudvander) · [LinkedIn](https://linkedin.com/in/avanderbecq)
+[GitHub](https://github.com/vandervdb) · [LinkedIn](https://linkedin.com/in/avanderbecq)
 
 ---
 
