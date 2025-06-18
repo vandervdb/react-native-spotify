@@ -6,9 +6,12 @@
   "private": true,
   "dependencies": {
     "axios": "^1.10.0",
+    "mobx": "^6.13.7",
     "react": "~18.3.1",
     "react-dom": "~18.3.1",
-    "react-native": "~0.76.3"
+    "react-native": "~0.76.3",
+    "react-native-keychain": "^10.0.0",
+    "react-native-logs": "^5.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.14.5",
@@ -71,6 +74,12 @@
   },
   "workspaces": [
     "apps/*",
-    "auth-client"
+    "auth-client",
+    "core-logger",
+    "player-state",
+    "core-secure-storage",
+    "http-client",
+    "keychain-service",
+    "core-constants"
   ]
 }

@@ -8,6 +8,21 @@
     },
     {
       "path": "./auth-client"
+    },
+    {
+      "path": "./core-logger"
+    },
+    {
+      "path": "./player-state"
+    },
+    {
+      "path": "./http-client"
+    },
+    {
+      "path": "./keychain-service"
+    },
+    {
+      "path": "./core-constants"
     }
   ]
 }
