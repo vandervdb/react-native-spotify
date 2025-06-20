@@ -22,7 +22,12 @@ export interface UserCredentials {
   password: string;
 }
 
-function createSecureStorage<T>(storageKey: string, service: string) {
+export interface SecureStorage<T> {
+  save(data: T): Promise<void>;
+  get(): Promise<T | undefined>;
+}
+
+function createSecureStorage<T>(storageKey: string, service: string): SecureStorage<T> {
   const options = {
     service,
     storage: STORAGE_TYPE.AES_GCM,

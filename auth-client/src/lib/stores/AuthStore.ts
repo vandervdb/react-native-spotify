@@ -1,7 +1,11 @@
 import { makeAutoObservable, observable, runInAction } from 'mobx';
 import { log } from '@react-native-spotify/core-logger';
-import { KeyChainService, TokenData } from '@react-native-spotify/keychain-service';
-import { fetchAccessToken } from '../api/authClient.js';
+import {
+  KeyChainService,
+  TokenData,
+  SecureStorage,
+} from '@react-native-spotify/keychain-service';
+import { AuthClient, defaultAuthClient } from '../api/authClient.js';
 
 export class AuthStore {
   private tokenRefreshPromise: Promise<void> | null = null;
@@ -9,7 +13,10 @@ export class AuthStore {
   loading = false;
   error: Error | null = null;
 
-  constructor() {
+  constructor(
+    private authClient: AuthClient = defaultAuthClient,
+    private storage: SecureStorage<TokenData> = KeyChainService.token,
+  ) {
     makeAutoObservable(this, {
       authParams: observable,
       loading: observable,
@@ -40,7 +47,7 @@ export class AuthStore {
       });
 
       try {
-        const stored = await KeyChainService.token.get();
+        const stored = await this.storage.get();
         if (stored && stored.token && stored.expiresAt > Date.now()) {
           runInAction(() => {
             this.authParams = stored;
@@ -72,7 +79,7 @@ export class AuthStore {
     });
 
     try {
-      const response = await fetchAccessToken();
+      const response = await this.authClient.fetchAccessToken();
       if (!response) throw new Error('Aucun token reçu de Spotify');
 
       const tokenData: TokenData = {
@@ -80,7 +87,7 @@ export class AuthStore {
         expiresAt: Date.now() + response.expires_in * 1000,
       };
 
-      await KeyChainService.token.save(tokenData);
+      await this.storage.save(tokenData);
 
       runInAction(() => {
         this.authParams = tokenData;
