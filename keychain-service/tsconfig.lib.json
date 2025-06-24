@@ -6,13 +6,16 @@
     "outDir": "dist",
     "tsBuildInfoFile": "dist/tsconfig.lib.tsbuildinfo",
     "emitDeclarationOnly": false,
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
+    "module": "esnext",
+    "moduleResolution": "node",
     "forceConsistentCasingInFileNames": true,
     "types": ["node"]
   },
   "include": ["src/**/*.ts"],
   "references": [
+    {
+      "path": "../core-domain/tsconfig.lib.json"
+    },
     {
       "path": "../core-logger/tsconfig.lib.json"
     },

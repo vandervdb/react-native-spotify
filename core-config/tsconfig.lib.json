@@ -2,15 +2,25 @@
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
     "baseUrl": ".",
+    "paths": {
+      "@env": [
+        "./src/lib/env.d.ts"
+      ]
+    },
     "rootDir": "src",
     "outDir": "dist",
     "tsBuildInfoFile": "dist/tsconfig.lib.tsbuildinfo",
     "emitDeclarationOnly": false,
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
+    "module": "esnext",
+    "moduleResolution": "node",
     "forceConsistentCasingInFileNames": true,
-    "types": ["node"]
+    "types": [
+      "node",
+      "./src/lib/env"
+    ]
   },
-  "include": ["src/**/*.ts"],
+  "include": [
+    "src/**/*.ts"
+  ],
   "references": []
 }

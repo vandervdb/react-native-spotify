@@ -4,6 +4,9 @@
   "include": [],
   "references": [
     {
+      "path": "../core-domain"
+    },
+    {
       "path": "../core-logger"
     },
     {

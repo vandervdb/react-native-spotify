@@ -1,4 +1,4 @@
-import { keychainService } from './keychain-service.js';
+import { keychainService } from './keychain-service';
 
 describe('keychainService', () => {
   it('should work', () => {

@@ -9,6 +9,25 @@
     "react": "*",
     "react-native": "*",
     "react-native-svg": "*",
-    "metro-config": "*"
-  }
+    "metro-config": "*",
+    "@nx/eslint-plugin": "*",
+    "react-native-svg-transformer": "*",
+    "jsonc-eslint-parser": "*",
+    "tslib": "*",
+    "react-native-logs": "*",
+    "axios": "*",
+    "mobx": "*",
+    "react-native-keychain": "*",
+    "react-dom": "*",
+    "react-native-get-random-values": "*",
+    "react-native-quick-crypto": "*",
+    "vite": "*",
+    "@vitejs/plugin-react": "*",
+    "@nx/vite": "*",
+    "esbuild": "*",
+    "@craftzdog/react-native-buffer": "*",
+    "react-native-app-auth": "*",
+    "lodash": "*"
+  },
+  "devDependencies": {}
 }

@@ -1,15 +1,25 @@
+import {
+  AuthClient,
+  AuthStore,
+  SecureStorage,
+} from '@react-native-spotify/core-domain';
 import { makeAutoObservable, observable, runInAction } from 'mobx';
 import { log } from '@react-native-spotify/core-logger';
-import { KeyChainService, TokenData } from '@react-native-spotify/keychain-service';
-import { fetchAccessToken } from '../api/authClient.js';
+import {
+  KeyChainService,
+  TokenData,
+} from '@react-native-spotify/keychain-service';
 
-export class AuthStore {
+export class DefaultAuthStore implements AuthStore {
   private tokenRefreshPromise: Promise<void> | null = null;
   authParams: TokenData = { token: '', expiresAt: 0 };
   loading = false;
   error: Error | null = null;
 
-  constructor() {
+  constructor(
+    private authClient: AuthClient,
+    private storage: SecureStorage<TokenData> = KeyChainService.token,
+  ) {
     makeAutoObservable(this, {
       authParams: observable,
       loading: observable,
@@ -20,7 +30,9 @@ export class AuthStore {
   }
 
   get isTokenValid(): boolean {
-    return this.authParams.token !== '' && this.authParams.expiresAt > Date.now();
+    return (
+      this.authParams.token !== '' && this.authParams.expiresAt > Date.now()
+    );
   }
 
   get token(): string {
@@ -40,7 +52,7 @@ export class AuthStore {
       });
 
       try {
-        const stored = await KeyChainService.token.get();
+        const stored = await this.storage.get();
         if (stored && stored.token && stored.expiresAt > Date.now()) {
           runInAction(() => {
             this.authParams = stored;
@@ -72,7 +84,9 @@ export class AuthStore {
     });
 
     try {
-      const response = await fetchAccessToken();
+      const momo = await this.authClient.startAuthorization();
+      log.debug('refreshAccessToken::AuthState:', momo);
+      const response = await this.authClient.fetchAccessToken();
       if (!response) throw new Error('Aucun token reçu de Spotify');
 
       const tokenData: TokenData = {
@@ -80,7 +94,7 @@ export class AuthStore {
         expiresAt: Date.now() + response.expires_in * 1000,
       };
 
-      await KeyChainService.token.save(tokenData);
+      await this.storage.save(tokenData);
 
       runInAction(() => {
         this.authParams = tokenData;
@@ -97,12 +111,3 @@ export class AuthStore {
     }
   }
 }
-
-export async function ensureTokenReady(): Promise<void> {
-  if (!authStore.isTokenValid) {
-    await authStore.loadToken();
-  }
-}
-
-const authStore = new AuthStore();
-export { authStore };

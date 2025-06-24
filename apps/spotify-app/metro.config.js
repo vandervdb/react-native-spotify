@@ -18,6 +18,12 @@ const customConfig = {
   resolver: {
     assetExts: assetExts.filter((ext) => ext !== 'svg'),
     sourceExts: [...sourceExts, 'cjs', 'mjs', 'svg'],
+    resolveRequest: (context, moduleName, platform) => {
+      if (moduleName === 'crypto') {
+        return context.resolveRequest(context, 'react-native-quick-crypto', platform);
+      }
+      return context.resolveRequest(context, moduleName, platform);
+    },
   },
 };
 

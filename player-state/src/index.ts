@@ -1,1 +1,1 @@
-export * from './lib/player-state.js';
+export * from './lib/player-state';

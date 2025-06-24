@@ -1,28 +1,18 @@
-import {SERVICES} from '@react-native-spotify/core-constants';
-import  {STORAGE_TYPE} from 'react-native-keychain';
+import { SERVICES } from '@react-native-spotify/core-constants';
 import * as Keychain from 'react-native-keychain';
-import {log} from '@react-native-spotify/core-logger';
+import { STORAGE_TYPE } from 'react-native-keychain';
+import { log } from '@react-native-spotify/core-logger';
+import {
+  RefreshTokenData,
+  SecureStorage,
+  TokenData,
+  UserCredentials,
+} from '@react-native-spotify/core-domain';
 
-export function keychainService(): string {
-  return 'keychain-service';
-}
-
-export interface TokenData {
-  token: string;
-  expiresAt: number;
-}
-
-export interface RefreshTokenData {
-  refreshToken: string;
-  expiresAt: number;
-}
-
-export interface UserCredentials {
-  username: string;
-  password: string;
-}
-
-function createSecureStorage<T>(storageKey: string, service: string) {
+function createSecureStorage<T>(
+  storageKey: string,
+  service: string,
+): SecureStorage<T> {
   const options = {
     service,
     storage: STORAGE_TYPE.AES_GCM,
@@ -30,7 +20,11 @@ function createSecureStorage<T>(storageKey: string, service: string) {
 
   const save = async (data: T): Promise<void> => {
     try {
-      await Keychain.setGenericPassword(storageKey, JSON.stringify(data), options);
+      await Keychain.setGenericPassword(
+        storageKey,
+        JSON.stringify(data),
+        options,
+      );
       log.debug('createSecureStorage save: ', data);
     } catch (error) {
       log.error('Erreur lors de la sauvegarde sécurisée', { error, service });
@@ -54,6 +48,12 @@ function createSecureStorage<T>(storageKey: string, service: string) {
 
 export const KeyChainService = {
   token: createSecureStorage<TokenData>('token', SERVICES.API_TOKEN),
-  refreshToken: createSecureStorage<RefreshTokenData>('refresh_token', SERVICES.REFRESH_TOKEN),
-  credentials: createSecureStorage<UserCredentials>('user', SERVICES.USER_CREDENTIALS),
+  refreshToken: createSecureStorage<RefreshTokenData>(
+    'refresh_token',
+    SERVICES.REFRESH_TOKEN,
+  ),
+  credentials: createSecureStorage<UserCredentials>(
+    'user',
+    SERVICES.USER_CREDENTIALS,
+  ),
 };

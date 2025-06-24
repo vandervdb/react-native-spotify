@@ -1,0 +1,30 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "rootDir": "src",
+    "outDir": "dist",
+    "tsBuildInfoFile": "dist/tsconfig.lib.tsbuildinfo",
+    "emitDeclarationOnly": false,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "forceConsistentCasingInFileNames": true,
+    "types": ["node"]
+  },
+  "include": ["src/**/*.ts"],
+  "references": [
+    {
+      "path": "../keychain-service/tsconfig.lib.json"
+    },
+    {
+      "path": "../core-logger/tsconfig.lib.json"
+    },
+    {
+      "path": "../core-domain/tsconfig.lib.json"
+    },
+    {
+      "path": "../auth-client/tsconfig.lib.json"
+    }
+  ],
+  "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"]
+}

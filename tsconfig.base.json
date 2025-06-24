@@ -1,5 +1,23 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@env": ["./libs/core-config/src/lib/env.d.ts"],
+      "@react-native-spotify/auth-client": ["./auth-client/src/index.ts"],
+      "@react-native-spotify/auth-http-client": [
+        "./auth-http-client/src/index.ts"
+      ],
+      "@react-native-spotify/core-config": ["./core-config/src/index.ts"],
+      "@react-native-spotify/core-constants": ["./core-constants/src/index.ts"],
+      "@react-native-spotify/core-domain": ["./core-domain/src/index.ts"],
+      "@react-native-spotify/core-dto": ["./core-dto/src/index.ts"],
+      "@react-native-spotify/core-logger": ["./core-logger/src/index.ts"],
+      "@react-native-spotify/http-client": ["./http-client/src/index.ts"],
+      "@react-native-spotify/keychain-service": [
+        "./keychain-service/src/index.ts"
+      ],
+      "@react-native-spotify/player-state": ["./player-state/src/index.ts"]
+    },
     "composite": true,
     "declarationMap": true,
     "emitDeclarationOnly": true,
@@ -7,7 +25,7 @@
     "isolatedModules": true,
     "lib": ["es2022"],
     "module": "esnext",
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
     "noEmitOnError": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitOverride": true,
@@ -16,11 +34,7 @@
     "skipLibCheck": true,
     "strict": true,
     "target": "es2022",
-    "customConditions": ["development"]
-  },
-  "include": [
-    "env.d.ts",
-//    "**/*.ts",
-//    "**/*.tsx"
-  ]
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true
+  }
 }

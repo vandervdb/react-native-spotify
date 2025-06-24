@@ -39,8 +39,7 @@ export default defineConfig({
     alias: {
       'react-native': 'react-native-web',
       'react-native-svg': 'react-native-svg-web',
-      '@react-native/assets-registry/registry':
-        'react-native-web/dist/modules/AssetRegistry/index',
+      '@react-native/assets-registry/registry': 'react-native-web/dist/modules/AssetRegistry/index',
     },
   },
   build: {
@@ -48,6 +47,7 @@ export default defineConfig({
     commonjsOptions: { transformMixedEsModules: true },
     outDir: '../../dist/apps/spotify-app/web',
     rollupOptions: {
+      external: ['@env', 'crypto'],
       plugins: [rollupPlugin([/react-native-vector-icons/])],
     },
   },

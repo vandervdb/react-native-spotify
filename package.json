@@ -6,12 +6,16 @@
   "private": true,
   "dependencies": {
     "axios": "^1.10.0",
+    "lodash": "^4.17.21",
     "mobx": "^6.13.7",
     "react": "~18.3.1",
     "react-dom": "~18.3.1",
     "react-native": "~0.76.3",
+    "react-native-app-auth": "^8.0.3",
+    "react-native-get-random-values": "^1.11.0",
     "react-native-keychain": "^10.0.0",
-    "react-native-logs": "^5.3.0"
+    "react-native-logs": "^5.3.0",
+    "react-native-quick-crypto": "^0.7.14"
   },
   "devDependencies": {
     "@babel/core": "^7.14.5",
@@ -37,6 +41,7 @@
     "@testing-library/jest-native": "~5.4.3",
     "@testing-library/react-native": "~12.9.0",
     "@types/jest": "^29.5.12",
+    "@types/lodash": "^4.17.18",
     "@types/node": "18.16.9",
     "@types/react": "~18.3.12",
     "@types/react-dom": "~18.3.1",
@@ -44,6 +49,7 @@
     "@vitest/ui": "^3.0.0",
     "babel-jest": "^29.7.0",
     "babel-plugin-dotenv-import": "^3.0.1",
+    "babel-plugin-module-resolver": "^5.0.2",
     "eslint": "^9.8.0",
     "eslint-config-prettier": "^10.0.0",
     "eslint-plugin-import": "2.31.0",
@@ -61,7 +67,7 @@
     "prettier": "^2.6.2",
     "react-native-dotenv": "^3.4.11",
     "react-native-svg": "~15.8.0",
-    "react-native-svg-transformer": "~1.5.0",
+    "react-native-svg-transformer": "^1.5.1",
     "react-native-svg-web": "~1.0.9",
     "react-native-web": "~0.19.13",
     "react-test-renderer": "~18.3.1",
@@ -82,6 +88,12 @@
     "http-client",
     "keychain-service",
     "core-constants",
-    "core-config"
+    "core-config",
+    "core-auth-interceptor",
+    "auth-http-client",
+    "core-domain",
+    "core-dto",
+    "auth-store",
+    "auth-service"
   ]
 }

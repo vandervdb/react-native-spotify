@@ -1,1 +1,1 @@
-export * from './lib/keychain-service.js';
+export * from './lib/keychain-service';

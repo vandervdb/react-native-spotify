@@ -1,19 +1,5 @@
 import { AxiosInstance } from 'axios';
-import { authStore } from '@react-native-spotify/auth-client';
 import { log } from '@react-native-spotify/core-logger';
-
-export const attachBearerInterceptor = (client: AxiosInstance) => {
-  client.interceptors.request.use(async (config) => {
-    if (!authStore.isTokenValid) {
-      await authStore.loadToken();
-    }
-    const token = authStore.token;
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  });
-};
 
 export const attachLogger = (client: AxiosInstance) => {
   client.interceptors.request.use((request) => {
@@ -34,4 +20,5 @@ export const attachLogger = (client: AxiosInstance) => {
       }
     },
   );
+  return client;
 };

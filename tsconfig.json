@@ -26,6 +26,18 @@
     },
     {
       "path": "./core-config"
+    },
+    {
+      "path": "./core-domain"
+    },
+    {
+      "path": "./core-dto"
+    },
+    {
+      "path": "./auth-store"
+    },
+    {
+      "path": "./auth-service"
     }
   ]
 }
