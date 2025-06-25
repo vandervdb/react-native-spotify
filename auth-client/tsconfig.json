@@ -7,9 +7,6 @@
       "path": "../core-config"
     },
     {
-      "path": "../keychain-service"
-    },
-    {
       "path": "../core-constants"
     },
     {

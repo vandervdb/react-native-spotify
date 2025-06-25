@@ -1,7 +1,8 @@
 import { SpotifyTokenResponseDto } from '@react-native-spotify/core-dto';
+import { TokenData } from '../storage/SecureStorage';
 
 export interface AuthClient {
-  startAuthorization(): Promise<string | null>;
+  startAuthorization(): Promise<TokenData | null>;
 
-  fetchAccessToken(): Promise<SpotifyTokenResponseDto | undefined>;
+  getRefreshToken(): Promise<SpotifyTokenResponseDto | undefined>;
 }

@@ -6,7 +6,7 @@
       "path": "../../core-logger"
     },
     {
-      "path": "../../auth-client"
+      "path": "../../auth-store"
     },
     {
       "path": "./tsconfig.app.json"

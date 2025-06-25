@@ -1,7 +1,6 @@
-const API_BASE_V1 = 'https://api.spotify.com/v1/';
-const ACCOUNTS_API_BASE = 'https://accounts.spotify.com/api/';
-const AUTHORIZE_URL = 'https://accounts.spotify.com/authorize/';
-const TOKEN_URL = 'https://accounts.spotify.com/api/token';
+const API_BASE_V1 = 'https://api.spotify.com/v1';
+const ACCOUNTS_API_BASE = 'https://accounts.spotify.com/api';
+const AUTHORIZE_URL = 'https://accounts.spotify.com/authorize';
 
 export const API_CONSTANTS = {
   REQUEST_CODE: 22114458,
@@ -9,14 +8,14 @@ export const API_CONSTANTS = {
 
   // URLs
   AUTHORIZE_URL,
-  TOKEN_URL,
+  TOKEN_URL: `${ACCOUNTS_API_BASE}/token`,
   ACCOUNTS_API_BASE,
   API_BASE_V1,
   API_ME: `${API_BASE_V1}me/`,
 
   // Scopes
   SCOPES: {
-    USER_READ_PRIVATE: 'user-read-private user-read-email',
+    USER_READ_PRIVATE: 'user-read-private',
     USER_READ_PLAYBACK_STATE: 'user-read-playback-state',
     USER_READ_CURRENTLY_PLAYING: 'user-read-currently-playing',
     USER_LIBRARY_MODIFY: 'user-library-modify',

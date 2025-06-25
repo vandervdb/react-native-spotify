@@ -3,7 +3,6 @@ import * as Keychain from 'react-native-keychain';
 import { STORAGE_TYPE } from 'react-native-keychain';
 import { log } from '@react-native-spotify/core-logger';
 import {
-  RefreshTokenData,
   SecureStorage,
   TokenData,
   UserCredentials,
@@ -48,10 +47,6 @@ function createSecureStorage<T>(
 
 export const KeyChainService = {
   token: createSecureStorage<TokenData>('token', SERVICES.API_TOKEN),
-  refreshToken: createSecureStorage<RefreshTokenData>(
-    'refresh_token',
-    SERVICES.REFRESH_TOKEN,
-  ),
   credentials: createSecureStorage<UserCredentials>(
     'user',
     SERVICES.USER_CREDENTIALS,

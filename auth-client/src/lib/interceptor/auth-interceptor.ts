@@ -1,11 +1,7 @@
-import {
-  AxiosError,
-  AxiosInstance,
-  AxiosRequestHeaders,
-  InternalAxiosRequestConfig,
-} from 'axios';
+import { AxiosError, AxiosInstance, InternalAxiosRequestConfig } from 'axios';
 import { log } from '@react-native-spotify/core-logger';
-import { authStore } from '../../index';
+
+// import { authStore } from '../../index';
 
 interface RetryableRequestConfig extends InternalAxiosRequestConfig {
   _retry?: boolean;
@@ -14,23 +10,23 @@ interface RetryableRequestConfig extends InternalAxiosRequestConfig {
 const attachBearer = async (
   config: InternalAxiosRequestConfig,
 ): Promise<InternalAxiosRequestConfig> => {
-  if (!authStore.isTokenValid) {
-    await authStore.loadToken();
-  }
-
-  const token = authStore.token;
-  if (token) {
-    if (!config.headers) {
-      config.headers = {} as AxiosRequestHeaders;
-    }
-    if (typeof config.headers.set === 'function') {
-      config.headers.set('Authorization', `Bearer ${token}`);
-    } else {
-      config.headers['Authorization'] = `Bearer ${token}`;
-    }
-  }
-
-  log.debug('→ Bearer token attaché');
+  // if (!authStore.isTokenValid) {
+  //   await authStore.loadToken();
+  // }
+  //
+  // const token = authStore.token;
+  // if (token) {
+  //   if (!config.headers) {
+  //     config.headers = {} as AxiosRequestHeaders;
+  //   }
+  //   if (typeof config.headers.set === 'function') {
+  //     config.headers.set('Authorization', `Bearer ${token}`);
+  //   } else {
+  //     config.headers['Authorization'] = `Bearer ${token}`;
+  //   }
+  // }
+  //
+  // log.debug('→ Bearer token attaché');
 
   return config;
 };
@@ -46,20 +42,20 @@ const handle401 = async (error: AxiosError): Promise<any> => {
 
     originalRequest._retry = true;
 
-    try {
-      await authStore.refreshAccessToken();
-
-      const token = authStore.token;
-      if (token) {
-        originalRequest.headers.Authorization = `Bearer ${token}`;
-        return import('axios').then(({ default: axios }) =>
-          axios(originalRequest),
-        );
-      }
-    } catch (refreshError) {
-      log.error('Échec du refresh après 401', refreshError);
-      throw refreshError;
-    }
+    // try {
+    //   await authStore.refreshAccessToken();
+    //
+    //   const token = authStore.token;
+    //   if (token) {
+    //     originalRequest.headers.Authorization = `Bearer ${token}`;
+    //     return import('axios').then(({ default: axios }) =>
+    //       axios(originalRequest),
+    //     );
+    //   }
+    // } catch (refreshError) {
+    //   log.error('Échec du refresh après 401', refreshError);
+    //   throw refreshError;
+    // }
   }
 
   throw error;

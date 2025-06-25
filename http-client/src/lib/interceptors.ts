@@ -1,5 +1,6 @@
 import { AxiosInstance } from 'axios';
 import { log } from '@react-native-spotify/core-logger';
+// import { AuthService } from '@react-native-spotify/core-domain';
 
 export const attachLogger = (client: AxiosInstance) => {
   client.interceptors.request.use((request) => {
@@ -17,8 +18,16 @@ export const attachLogger = (client: AxiosInstance) => {
     (error) => {
       log.error('[API Error]', error.message);
       if (error.response) {
+        // do nothing
       }
     },
   );
   return client;
 };
+
+// export const attacheBearer = async (
+//   client: AxiosInstance,
+//   authService: AuthService,
+// ) => {
+//   const token = await authService.getToken();
+// };

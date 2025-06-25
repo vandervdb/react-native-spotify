@@ -3,6 +3,10 @@ import { AuthService, AuthStore } from '@react-native-spotify/core-domain';
 export class DefaultAuthService implements AuthService {
   constructor(private authStore: AuthStore) {}
 
+  isTokenValid(): boolean {
+    return this.authStore.isTokenValid;
+  }
+
   async getToken(): Promise<string> {
     if (!this.authStore.isTokenValid) {
       await this.authStore.loadToken();

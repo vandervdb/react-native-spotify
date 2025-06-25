@@ -7,6 +7,9 @@
       "path": "../core-logger"
     },
     {
+      "path": "../core-domain"
+    },
+    {
       "path": "./tsconfig.lib.json"
     },
     {

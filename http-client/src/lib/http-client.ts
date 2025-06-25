@@ -1,16 +1,23 @@
 import axios from 'axios';
 import { attachLogger } from './interceptors';
+import { AuthService } from '@react-native-spotify/core-domain';
 
-export const api = (url: string) => {
-  return attachLogger(
-    axios.create({
-      baseURL: url,
-      timeout: 10000,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }),
-  );
-};
+function createApi(url: string) {
+  const instance = axios.create({
+    baseURL: url,
+    timeout: 10000,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  attachLogger(instance);
 
-export default api;
+  return instance;
+}
+
+function createAuthApi(url: string, authService: AuthService) {
+  const instance = createApi(url);
+  return instance;
+}
+
+export { createApi, createAuthApi };

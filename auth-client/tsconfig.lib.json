@@ -17,9 +17,6 @@
       "path": "../core-config/tsconfig.lib.json"
     },
     {
-      "path": "../keychain-service/tsconfig.lib.json"
-    },
-    {
       "path": "../core-constants/tsconfig.lib.json"
     },
     {

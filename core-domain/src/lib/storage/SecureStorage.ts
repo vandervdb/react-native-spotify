@@ -6,10 +6,6 @@ export interface SecureStorage<T> {
 
 export interface TokenData {
   token: string;
-  expiresAt: number;
-}
-
-export interface RefreshTokenData {
   refreshToken: string;
   expiresAt: number;
 }

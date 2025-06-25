@@ -2,17 +2,15 @@ import {
   AuthClient,
   AuthStore,
   SecureStorage,
+  TokenData,
 } from '@react-native-spotify/core-domain';
 import { makeAutoObservable, observable, runInAction } from 'mobx';
 import { log } from '@react-native-spotify/core-logger';
-import {
-  KeyChainService,
-  TokenData,
-} from '@react-native-spotify/keychain-service';
+import { KeyChainService } from '@react-native-spotify/keychain-service';
 
 export class DefaultAuthStore implements AuthStore {
   private tokenRefreshPromise: Promise<void> | null = null;
-  authParams: TokenData = { token: '', expiresAt: 0 };
+  authParams: TokenData = { token: '', refreshToken: '', expiresAt: 0 };
   loading = false;
   error: Error | null = null;
 
@@ -84,13 +82,20 @@ export class DefaultAuthStore implements AuthStore {
     });
 
     try {
-      const momo = await this.authClient.startAuthorization();
-      log.debug('refreshAccessToken::AuthState:', momo);
-      const response = await this.authClient.fetchAccessToken();
+      if (!this.authParams.refreshToken) {
+        const authorizationData = await this.authClient.startAuthorization();
+        log.debug(
+          'startAuthorization tokenData:',
+          JSON.stringify(authorizationData),
+        );
+      }
+
+      const response = await this.authClient.getRefreshToken();
       if (!response) throw new Error('Aucun token reçu de Spotify');
 
       const tokenData: TokenData = {
         token: response.access_token,
+        refreshToken: response.refresh_token,
         expiresAt: Date.now() + response.expires_in * 1000,
       };
 
