@@ -7,7 +7,7 @@ import { API_CONSTANTS } from '@react-native-spotify/core-constants';
 import { authorize } from 'react-native-app-auth';
 
 export class DefaultAuthClient implements AuthClient {
-  async startAuthorization(): Promise<TokenData | null> {
+  async startAuthorization(): Promise<TokenData | undefined> {
     log.debug('startAuthorization');
     const config = buildAuthConfig();
     try {
@@ -18,18 +18,18 @@ export class DefaultAuthClient implements AuthClient {
       return {
         token: authState.accessToken,
         refreshToken: authState.refreshToken,
-        expiresAt: 12, //Date.now() + authState.accessTokenExpirationDate * 1000
+        expiresAt: Date.now() + API_CONSTANTS.TOKEN_EXPIRATION_DURATION * 1000,
       };
     } catch (e) {
       log.error(
         'startAuthorization::Une erreur est survenue en chargeant le token Spotify',
         e,
       );
-      return null;
+      return undefined;
     }
   }
 
-  async getRefreshToken(): Promise<SpotifyTokenResponseDto | undefined> {
+  async getRefreshToken(): Promise<TokenData | undefined> {
     try {
       log.debug('getRefreshToken');
       const response = await createApi(
@@ -39,7 +39,12 @@ export class DefaultAuthClient implements AuthClient {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       });
-      return response.data;
+      const data = response.data;
+      return {
+        token: data.access_token,
+        refreshToken: data.refresh_token,
+        expiresAt: Date.now() + data.expires_in * 1000,
+      };
     } catch (e) {
       log.error(
         'getRefreshToken::Une erreur est survenue en chargeant le token Spotify',

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { attachLogger } from './interceptors';
+import { attachBearerInterceptor, attachLogger } from './interceptors';
 import { AuthService } from '@react-native-spotify/core-domain';
 
 function createApi(url: string) {
@@ -11,12 +11,12 @@ function createApi(url: string) {
     },
   });
   attachLogger(instance);
-
   return instance;
 }
 
 function createAuthApi(url: string, authService: AuthService) {
   const instance = createApi(url);
+  attachBearerInterceptor(instance, authService);
   return instance;
 }
 

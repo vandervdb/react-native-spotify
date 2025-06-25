@@ -76,43 +76,34 @@ export class DefaultAuthStore implements AuthStore {
   }
 
   async refreshAccessToken(): Promise<void> {
+    let tokenData: TokenData | undefined;
     runInAction(() => {
       this.loading = true;
       this.error = null;
     });
 
-    try {
-      if (!this.authParams.refreshToken) {
-        const authorizationData = await this.authClient.startAuthorization();
-        log.debug(
-          'startAuthorization tokenData:',
-          JSON.stringify(authorizationData),
-        );
-      }
-
-      const response = await this.authClient.getRefreshToken();
-      if (!response) throw new Error('Aucun token reçu de Spotify');
-
-      const tokenData: TokenData = {
-        token: response.access_token,
-        refreshToken: response.refresh_token,
-        expiresAt: Date.now() + response.expires_in * 1000,
-      };
-
-      await this.storage.save(tokenData);
-
-      runInAction(() => {
-        this.authParams = tokenData;
-        this.loading = false;
-      });
-
-      log.debug('Token rafraîchi avec succès');
-    } catch (e) {
-      runInAction(() => {
-        this.error = e instanceof Error ? e : new Error('Erreur refresh token');
-        this.loading = false;
-      });
-      log.error('refreshAccessToken error:', e);
+    if (!this.authParams.refreshToken) {
+      tokenData = await this.authClient.startAuthorization();
     }
+    tokenData = !this.authParams.refreshToken
+      ? await this.authClient.startAuthorization()
+      : await this.authClient.getRefreshToken();
+
+    if (!tokenData) {
+      runInAction(() => {
+        log.error('refreshAccessToken error:');
+        this.error = new Error('Erreur refresh token');
+        this.loading = false;
+      });
+      return;
+    }
+
+    await this.storage.save(tokenData);
+    runInAction(() => {
+      this.authParams = tokenData;
+      this.loading = false;
+    });
+
+    log.debug('Token rafraîchi avec succès');
   }
 }
