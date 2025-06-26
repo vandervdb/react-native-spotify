@@ -82,9 +82,6 @@ export class DefaultAuthStore implements AuthStore {
       this.error = null;
     });
 
-    if (!this.authParams.refreshToken) {
-      tokenData = await this.authClient.startAuthorization();
-    }
     tokenData = !this.authParams.refreshToken
       ? await this.authClient.startAuthorization()
       : await this.authClient.getRefreshToken();

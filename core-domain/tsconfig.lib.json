@@ -9,16 +9,8 @@
     "module": "esnext",
     "moduleResolution": "node",
     "forceConsistentCasingInFileNames": true,
-    "types": [
-      "node"
-    ]
+    "types": ["node"]
   },
-  "include": [
-    "src/**/*.ts"
-  ],
-  "references": [
-    {
-      "path": "../core-dto/tsconfig.lib.json"
-    }
-  ]
+  "include": ["src/**/*.ts"],
+  "references": []
 }
