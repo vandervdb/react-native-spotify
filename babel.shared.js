@@ -58,6 +58,10 @@ module.exports = {
             __dirname,
             'player-state/src',
           ),
+          '@react-native-spotify/spotify-client': path.resolve(
+            __dirname,
+            'spotify-client/src',
+          ),
         },
         extensions: ['.js', '.ts', '.tsx', '.json'],
       },

@@ -94,6 +94,7 @@
     "core-domain",
     "core-dto",
     "auth-store",
-    "auth-service"
+    "auth-service",
+    "spotify-client"
   ]
 }

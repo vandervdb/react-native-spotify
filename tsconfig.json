@@ -38,6 +38,9 @@
     },
     {
       "path": "./auth-service"
+    },
+    {
+      "path": "./spotify-client"
     }
   ]
 }
