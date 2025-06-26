@@ -16,7 +16,6 @@
       "@react-native-spotify/keychain-service": [
         "./keychain-service/src/index.ts"
       ],
-      "@react-native-spotify/player-state": ["./player-state/src/index.ts"]
       "@react-native-spotify/spotify-client": ["./spotify-client/src/index.ts"]
     },
     "composite": true,

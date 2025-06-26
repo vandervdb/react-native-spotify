@@ -54,10 +54,6 @@ module.exports = {
             __dirname,
             'keychain-service/src',
           ),
-          '@react-native-spotify/player-state': path.resolve(
-            __dirname,
-            'player-state/src',
-          ),
           '@react-native-spotify/spotify-client': path.resolve(
             __dirname,
             'spotify-client/src',

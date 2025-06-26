@@ -4,4 +4,8 @@ export interface AuthService {
   getToken(): Promise<string>;
 
   refreshToken(): Promise<void>;
+
+  startAuthorization(): Promise<TokenData | null>;
+
+  getRefreshToken(): Promise<TokenData | undefined>;
 }
