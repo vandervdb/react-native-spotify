@@ -1,3 +1,4 @@
+const path = require('path');
 const { withNxMetro } = require('@nx/react-native');
 const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config');
 
@@ -20,10 +21,26 @@ const customConfig = {
     sourceExts: [...sourceExts, 'cjs', 'mjs', 'svg'],
     resolveRequest: (context, moduleName, platform) => {
       if (moduleName === 'crypto') {
-        return context.resolveRequest(context, 'react-native-quick-crypto', platform);
+        return context.resolveRequest(
+          context,
+          'react-native-quick-crypto',
+          platform,
+        );
       }
       return context.resolveRequest(context, moduleName, platform);
     },
+    extraNodeModules: {
+      react: path.resolve(__dirname, '../../node_modules/react'),
+      'react-native': path.resolve(
+        __dirname,
+        '../../node_modules/react-native',
+      ),
+      'react-dom': path.resolve(__dirname, '../../node_modules/react-dom'),
+    },
+    watchFolders: [
+      path.resolve(__dirname, '../../libs'),
+      path.resolve(__dirname, '../../node_modules'),
+    ],
   },
 };
 

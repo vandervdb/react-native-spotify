@@ -4,6 +4,9 @@
   "include": [],
   "references": [
     {
+      "path": "../core-dto"
+    },
+    {
       "path": "./tsconfig.lib.json"
     }
   ]

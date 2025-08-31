@@ -1,5 +1,5 @@
 import './setup/polyfill';
 import { AppRegistry } from 'react-native';
-import App from './app/App';
+import { Root } from './app/Root';
 
-AppRegistry.registerComponent('SpotifyApp', () => App);
+AppRegistry.registerComponent('SpotifyApp', () => Root);

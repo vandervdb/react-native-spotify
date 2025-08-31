@@ -33,7 +33,10 @@
       "path": "../../core-logger/tsconfig.lib.json"
     },
     {
-      "path": "../../auth-store/tsconfig.lib.json"
+      "path": "../../keychain-service/tsconfig.lib.json"
+    },
+    {
+      "path": "../../spotify-client/tsconfig.lib.json"
     }
   ]
 }

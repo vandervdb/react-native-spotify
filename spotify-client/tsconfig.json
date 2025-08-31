@@ -4,6 +4,24 @@
   "include": [],
   "references": [
     {
+      "path": "../core-config"
+    },
+    {
+      "path": "../http-client"
+    },
+    {
+      "path": "../core-constants"
+    },
+    {
+      "path": "../core-dto"
+    },
+    {
+      "path": "../core-logger"
+    },
+    {
+      "path": "../core-domain"
+    },
+    {
       "path": "./tsconfig.lib.json"
     },
     {

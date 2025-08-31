@@ -1,1 +1,3 @@
-export * from './lib/spotify-client.js';
+export * from './lib/spotify-client';
+export * from './lib/auth';
+export * from './lib/shared';

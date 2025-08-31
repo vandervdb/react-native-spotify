@@ -22,10 +22,6 @@ module.exports = {
           buffer: '@craftzdog/react-native-buffer',
 
           // ✅ Alias avec chemins absolus
-          '@react-native-spotify/auth-client': path.resolve(
-            __dirname,
-            'auth-client/src',
-          ),
           '@react-native-spotify/core-config': path.resolve(
             __dirname,
             'core-config/src',

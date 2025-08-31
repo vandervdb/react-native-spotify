@@ -5,9 +5,10 @@
   "scripts": {},
   "private": true,
   "dependencies": {
-    "axios": "^1.10.0",
+    "axios": "1.11.0",
     "lodash": "^4.17.21",
     "mobx": "^6.13.7",
+    "mobx-react-lite": "^4.1.0",
     "react": "~18.3.1",
     "react-dom": "~18.3.1",
     "react-native": "~0.76.3",
@@ -79,21 +80,20 @@
     "vite": "^6.0.0",
     "vitest": "^3.0.0"
   },
+  "resolutions": {
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-native": "0.76.3"
+  },
   "workspaces": [
     "apps/*",
-    "auth-client",
     "core-logger",
-    "player-state",
-    "core-secure-storage",
     "http-client",
     "keychain-service",
     "core-constants",
     "core-config",
-    "core-auth-interceptor",
-    "auth-http-client",
     "core-domain",
     "core-dto",
-    "auth-store",
     "auth-service",
     "spotify-client"
   ]

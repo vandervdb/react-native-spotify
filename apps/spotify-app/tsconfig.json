@@ -6,7 +6,10 @@
       "path": "../../core-logger"
     },
     {
-      "path": "../../auth-store"
+      "path": "../../keychain-service"
+    },
+    {
+      "path": "../../spotify-client"
     },
     {
       "path": "./tsconfig.app.json"

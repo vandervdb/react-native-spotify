@@ -1,10 +1,10 @@
-import { AuthClient } from '@react-native-spotify/core-domain';
+import { AuthClient, Result } from '@react-native-spotify/core-domain';
 import { buildAuthConfig } from './utils/spotifyAuthUrl';
 import { log } from '@react-native-spotify/core-logger';
 import { authorize, AuthorizeResult } from 'react-native-app-auth';
 import { SpotifyTokenResponseDto } from '@react-native-spotify/core-dto';
 import { API_CONSTANTS } from '@react-native-spotify/core-constants';
-import { createApi } from '@react-native-spotify/http-client';
+import { usePostApi } from '@react-native-spotify/http-client';
 
 export class DefaultAuthClient implements AuthClient {
   async getAuthorization(): Promise<AuthorizeResult | undefined> {
@@ -22,28 +22,15 @@ export class DefaultAuthClient implements AuthClient {
     }
   }
 
-  async fetchRefreshToken(): Promise<SpotifyTokenResponseDto | undefined> {
+  async fetchRefreshToken(): Promise<Result<SpotifyTokenResponseDto>> {
     log.debug('getRefreshToken');
-    try {
-      const response = await createApi(
-        API_CONSTANTS.TOKEN_URL,
-      ).post<SpotifyTokenResponseDto>('', {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      });
-      if (response.data) {
-        return response.data;
-      } else {
-        log.warn('getRefreshToken::No data returned');
-        return undefined;
-      }
-    } catch (e) {
-      log.error(
-        'getRefreshToken::Une erreur est survenue en chargeant le token Spotify',
-        e,
-      );
-      return undefined;
-    }
+    const getRefreshToken = usePostApi<SpotifyTokenResponseDto>(
+      API_CONSTANTS.API_BASE_V1,
+      API_CONSTANTS.TOKEN,
+      {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    );
+    return await getRefreshToken();
   }
 }

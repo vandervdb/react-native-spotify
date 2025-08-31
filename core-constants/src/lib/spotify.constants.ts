@@ -1,19 +1,24 @@
-const API_BASE_V1 = 'https://api.spotify.com/v1';
-const ACCOUNTS_API_BASE = 'https://accounts.spotify.com/api';
-const AUTHORIZE_URL = 'https://accounts.spotify.com/authorize';
 const TOKEN_EXPIRATION_DURATION = 3600;
+const AUTHORIZE_URL = 'https://accounts.spotify.com/authorize';
+const ACCOUNTS_API_BASE = 'https://accounts.spotify.com/api';
+const TOKEN_ENDPOINT = 'https://accounts.spotify.com/api/token';
+const API_BASE_V1 = 'https://api.spotify.com/v1';
+const API_ME = `${API_BASE_V1}me`;
 
 export const API_CONSTANTS = {
   REQUEST_CODE: 22114458,
   REDIRECT_URI: 'org-vander-myspotifyapp://callback',
 
   // URLs
-  AUTHORIZE_URL,
-  TOKEN_URL: `${ACCOUNTS_API_BASE}/token`,
-  ACCOUNTS_API_BASE,
-  API_BASE_V1,
-  API_ME: `${API_BASE_V1}me/`,
   TOKEN_EXPIRATION_DURATION,
+  ACCOUNTS_API_BASE,
+  AUTHORIZE_URL,
+  TOKEN_ENDPOINT,
+  API_BASE_V1,
+  ME: API_ME,
+  TOKEN: `token`,
+  PLAYER: `player`,
+  QUEUE: `queue`,
 
   // Scopes
   SCOPES: {

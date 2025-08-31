@@ -11,7 +11,7 @@ export function buildAuthConfig(): AuthConfiguration {
     scopes: valuesIn(API_CONSTANTS.SCOPES),
     serviceConfiguration: {
       authorizationEndpoint: API_CONSTANTS.AUTHORIZE_URL,
-      tokenEndpoint: API_CONSTANTS.TOKEN_URL,
+      tokenEndpoint: API_CONSTANTS.TOKEN_ENDPOINT,
     },
   };
 }

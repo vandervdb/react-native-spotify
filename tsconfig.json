@@ -7,13 +7,7 @@
       "path": "./apps/spotify-app"
     },
     {
-      "path": "./auth-client"
-    },
-    {
       "path": "./core-logger"
-    },
-    {
-      "path": "./player-state"
     },
     {
       "path": "./http-client"
@@ -32,12 +26,6 @@
     },
     {
       "path": "./core-dto"
-    },
-    {
-      "path": "./auth-store"
-    },
-    {
-      "path": "./auth-service"
     },
     {
       "path": "./spotify-client"

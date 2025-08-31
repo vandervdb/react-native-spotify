@@ -3,7 +3,6 @@
     "baseUrl": ".",
     "paths": {
       "@env": ["./libs/core-config/src/lib/env.d.ts"],
-      "@react-native-spotify/auth-client": ["./auth-client/src/index.ts"],
       "@react-native-spotify/auth-http-client": [
         "./auth-http-client/src/index.ts"
       ],

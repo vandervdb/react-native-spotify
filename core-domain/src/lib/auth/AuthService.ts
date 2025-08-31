@@ -5,7 +5,5 @@ export interface AuthService {
 
   refreshToken(): Promise<void>;
 
-  startAuthorization(): Promise<TokenData | null>;
-
-  getRefreshToken(): Promise<TokenData | undefined>;
+  loadToken(): Promise<void>;
 }
