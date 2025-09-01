@@ -25,14 +25,6 @@ const TokenDisplay: FC = observer(() => {
   );
 });
 
-// const TokenDisplay: FC = () => {
-//   return (
-//     <View style={styles.section}>
-//       <Text>🪪 Token actuel Chargement...</Text>
-//     </View>
-//   );
-// };
-
 export const DefaultApp = () => {
   const [whatsNextYCoord, setWhatsNextYCoord] = useState<number>(0);
   const scrollViewRef = useRef<null | ScrollView>(null);

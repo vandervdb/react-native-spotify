@@ -1,11 +1,4 @@
-import { buildAuthConfig } from './spotifyAuthUrl.js';
-import { getEnv } from '@react-native-spotify/core-config';
-
-jest.mock('./environment', () => ({
-  getEnv: jest.fn(),
-}));
-
-jest.mock('./apiConstants', () => ({
+jest.mock('@react-native-spotify/core-constants', () => ({
   API_CONSTANTS: {
     SCOPES: {
       PLAYLIST_READ: 'playlist-read',
@@ -17,12 +10,19 @@ jest.mock('./apiConstants', () => ({
 }));
 
 describe('buildAuthConfig', () => {
-  it('should build the correct AuthConfiguration object', () => {
-    (getEnv as jest.Mock).mockReturnValue({
-      SPOTIFY_CLIENT_ID: 'test-client-id',
-      SPOTIFY_REDIRECT_URI: 'test-redirect-uri',
-    });
+  afterEach(() => {
+    jest.resetModules();
+  });
 
+  it('should build the correct AuthConfiguration object', () => {
+    jest.doMock('@react-native-spotify/core-config', () => ({
+      getEnv: () => ({
+        SPOTIFY_CLIENT_ID: 'test-client-id',
+        SPOTIFY_REDIRECT_URI: 'test-redirect-uri',
+      }),
+    }));
+
+    const { buildAuthConfig } = require('./spotifyAuthUrl');
     const config = buildAuthConfig();
 
     expect(config).toEqual({
@@ -36,12 +36,15 @@ describe('buildAuthConfig', () => {
     });
   });
 
-  it('should throw if environment variables are missing', () => {
-    (getEnv as jest.Mock).mockReturnValue({
-      SPOTIFY_CLIENT_ID: undefined,
-      SPOTIFY_REDIRECT_URI: undefined,
-    });
+  it('throws when env vars are missing', () => {
+    jest.doMock('@react-native-spotify/core-config', () => ({
+      getEnv: () => {
+        throw new Error('❌ Missing environment variables in .env file');
+      },
+    }));
 
-    expect(() => buildAuthConfig()).toThrow();
+    const { buildAuthConfig } = require('./spotifyAuthUrl');
+
+    expect(() => buildAuthConfig()).toThrow('❌ Missing environment variables');
   });
 });
