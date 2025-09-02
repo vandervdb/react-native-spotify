@@ -4,8 +4,8 @@ import type { AuthService, Result } from '@react-native-spotify/core-domain';
 type ApiMethod = 'get' | 'post';
 
 type ApiFactoryReturn<T> = {
-  get?: () => Promise<Result<T>>;
-  post?: () => Promise<Result<T>>;
+  get: () => Promise<Result<T>>;
+  post: () => Promise<Result<T>>;
 };
 
 type ApiFactoryFn<T> = (

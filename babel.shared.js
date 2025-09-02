@@ -42,6 +42,10 @@ module.exports = {
             __dirname,
             'core-logger/src',
           ),
+          '@react-native-spotify/test-utils': path.resolve(
+            __dirname,
+            'test-utils/src',
+          ),
           '@react-native-spotify/http-client': path.resolve(
             __dirname,
             'http-client/src',

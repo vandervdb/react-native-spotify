@@ -9,6 +9,7 @@ const workspaceLibs = [
   'core-dto',
   'core-logger',
   'http-client',
+  'test-utils',
   'keychain-service',
   'spotify-client',
 ];

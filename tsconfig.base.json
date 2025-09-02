@@ -3,9 +3,6 @@
     "baseUrl": ".",
     "paths": {
       "@env": ["./libs/core-config/src/lib/env.d.ts"],
-      "@react-native-spotify/auth-http-client": [
-        "./auth-http-client/src/index.ts"
-      ],
       "@react-native-spotify/core-config": ["./core-config/src/index.ts"],
       "@react-native-spotify/core-constants": ["./core-constants/src/index.ts"],
       "@react-native-spotify/core-domain": ["./core-domain/src/index.ts"],
@@ -15,7 +12,8 @@
       "@react-native-spotify/keychain-service": [
         "./keychain-service/src/index.ts"
       ],
-      "@react-native-spotify/spotify-client": ["./spotify-client/src/index.ts"]
+      "@react-native-spotify/spotify-client": ["./spotify-client/src/index.ts"],
+      "@react-native-spotify/test-utils": ["./test-utils/src/index.ts"]
     },
     "composite": true,
     "declarationMap": true,

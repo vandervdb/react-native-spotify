@@ -9,19 +9,17 @@
     "module": "esnext",
     "moduleResolution": "node",
     "forceConsistentCasingInFileNames": true,
-    "types": ["node"]
+    "types": [
+      "jest"
+    ]
   },
-  "include": ["src/**/*.ts"],
-  "references": [
-    {
-      "path": "../core-logger/tsconfig.lib.json"
-    },
-    {
-      "path": "../test-utils/tsconfig.lib.json"
-    },
-    {
-      "path": "../core-domain/tsconfig.lib.json"
-    }
+  "include": [
+    "src/**/*.ts"
   ],
-  "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"]
+  "references": [],
+  "exclude": [
+    "jest.config.ts",
+    "src/**/*.spec.ts",
+    "src/**/*.test.ts"
+  ]
 }
