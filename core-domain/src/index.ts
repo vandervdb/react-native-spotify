@@ -3,3 +3,4 @@ export * from './lib/auth/AuthStore';
 export * from './lib/storage/SecureStorage';
 export * from './lib/auth/AuthService';
 export * from './lib/types/Result';
+export * from './lib/http/errors';

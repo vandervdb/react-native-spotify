@@ -1,6 +1,12 @@
 import axios, { AxiosInstance } from 'axios';
 import { attachBearerInterceptor, attachLogger } from './interceptors';
-import { AuthService, Result } from '@react-native-spotify/core-domain';
+import {
+  AuthService,
+  err,
+  HttpError,
+  ok,
+  Result,
+} from '@react-native-spotify/core-domain';
 import { log } from '@react-native-spotify/core-logger';
 
 function createBaseApi(
@@ -34,18 +40,29 @@ export function createGetApi<T>(
 ) {
   const instance = createBaseApi(baseUrl, headers, authService);
 
-  const get = async (): Promise<Result<T>> => {
+  const get = async (): Promise<Result<T, HttpError>> => {
     try {
       const response = await instance.get(url);
-
-      return { ok: true, value: response.data };
+      return ok(response.data);
     } catch (e: unknown) {
       if (axios.isAxiosError(e)) {
-        log.error('Axios a rencontré une erreur lors du GET', e);
-        return { ok: false, error: e };
+        const httpErr: HttpError = {
+          kind: 'http get',
+          status: e.response?.status,
+          code: e.code,
+          message: e.message,
+          data: e.response?.data,
+          cause: e,
+        };
+        log.error('Erreur Axios: ', e);
+        return err(httpErr);
       }
-      log.error('Erreur inconnue', e);
-      return { ok: false, error: new Error('Erreur inconnue') };
+      log.error('Erreur inconnue: ', e);
+      return err<HttpError>({
+        kind: 'http get',
+        message: 'Erreur inconnue',
+        cause: e,
+      });
     }
   };
 
@@ -60,17 +77,29 @@ export function createPostApi<T>(
 ) {
   const instance = createBaseApi(baseUrl, headers, authService);
 
-  const post = async (): Promise<Result<T>> => {
+  const post = async (): Promise<Result<T, HttpError>> => {
     try {
       const response = await instance.post(url);
-      return { ok: true, value: response.data };
+      return ok(response.data);
     } catch (e: unknown) {
       if (axios.isAxiosError(e)) {
-        log.error('Axios a rencontré une erreur lors du POST', e);
-        return { ok: false, error: e };
+        const httpErr: HttpError = {
+          kind: 'http post',
+          status: e.response?.status,
+          code: e.code,
+          message: e.message,
+          data: e.response?.data,
+          cause: e,
+        };
+        log.error('Erreur Axios: ', e);
+        return err(httpErr);
       }
-      log.error('Erreur inconnue', e);
-      return { ok: false, error: new Error('Erreur inconnue') };
+      log.error('Erreur inconnue: ', e);
+      return err<HttpError>({
+        kind: 'http post',
+        message: 'Erreur inconnue',
+        cause: e,
+      });
     }
   };
 

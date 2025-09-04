@@ -21,7 +21,6 @@ module.exports = {
           stream: 'readable-stream',
           buffer: '@craftzdog/react-native-buffer',
 
-          // ✅ Alias avec chemins absolus
           '@react-native-spotify/core-config': path.resolve(
             __dirname,
             'core-config/src',

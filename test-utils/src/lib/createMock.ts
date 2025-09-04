@@ -16,11 +16,11 @@ export function createMock<T>(
 }
 
 /**
- * Crée une fonction mockée en conservant
- * le type d'arguments et de retour de F.
+ * Create a mocked function keeping
+ * F arguments and return type.
  *
- * - Pour F = () => Promise<string>
- *   => retourne jest.MockedFunction<() => Promise<string>>
+ * - For F = () => Promise<string>
+ *   => return jest.MockedFunction<() => Promise<string>>
  */
 export function mockFnOf<
   F extends (...args: any[]) => any,

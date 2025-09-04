@@ -117,3 +117,4 @@ test-output
 
 vite.config.*.timestamp*
 vitest.config.*.timestamp*
+/LogNote__20250901_09.31.50.txt

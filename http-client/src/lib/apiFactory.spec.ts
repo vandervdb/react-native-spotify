@@ -1,8 +1,13 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
 import axios, { AxiosInstance } from 'axios';
 import { attachBearerInterceptor, attachLogger } from './interceptors';
 import { createGetApi, createPostApi } from './apiFactory';
-import type { AuthService } from '@react-native-spotify/core-domain';
+import {
+  AuthService,
+  HttpError,
+  isErr,
+  isHttpError,
+  Result,
+} from '@react-native-spotify/core-domain';
 import { createMock, mockFnOf } from '@react-native-spotify/test-utils';
 
 jest.mock('axios', () => {
@@ -40,7 +45,7 @@ function setupAxiosInstance(): void {
       request: { use: jest.fn(), eject: jest.fn() },
       response: { use: jest.fn(), eject: jest.fn() },
     },
-    defaults: {} as any,
+    defaults: {} as never,
   } as unknown as jest.Mocked<AxiosInstance>;
 
   mockedAxios.create.mockReset();
@@ -57,8 +62,8 @@ type ApiFactory<T> = (
   headers?: Record<string, string>,
   authService?: AuthService,
 ) => {
-  get?: () => Promise<{ ok: boolean; value?: T; error?: unknown }>;
-  post?: () => Promise<{ ok: boolean; value?: T; error?: unknown }>;
+  get?: () => Promise<Result<T, HttpError>>;
+  post?: () => Promise<Result<T, HttpError>>;
 };
 
 async function runCall<T>(
@@ -114,16 +119,19 @@ describe('apiFactory (factorisé GET/POST)', () => {
       });
 
       it('retourne ok:false avec erreur axios', async () => {
-        const error = new Error('boom');
+        const errMessage = 'boom';
+        const error = new Error(errMessage);
         mockedAxios.isAxiosError.mockReturnValue(true);
         rejectWith(error);
 
         const api = factory('https://api', '/resource');
         const result = await runCall<any>(api, method);
 
-        expect(result.ok).toBe(false);
+        expect(isErr(result)).toBe(true);
         if (!result.ok) {
-          expect(result.error).toBe(error);
+          expect(isHttpError(result.error)).toBe(true);
+          expect(result.error.kind).toBe(`http ${method}`);
+          expect(result.error.message).toBe(errMessage);
         }
         expect(mockedAttachLogger).toHaveBeenCalledWith(instance);
       });
@@ -135,10 +143,11 @@ describe('apiFactory (factorisé GET/POST)', () => {
         const api = factory('https://api', '/resource');
         const result = await runCall<any>(api, method);
 
-        expect(result.ok).toBe(false);
+        expect(isErr(result)).toBe(true);
         if (!result.ok) {
-          expect(result.error).toBeInstanceOf(Error);
-          expect((result.error as Error).message).toBe('Erreur inconnue');
+          expect(isHttpError(result.error)).toBe(true);
+          expect(result.error.kind).toBe(`http ${method}`);
+          expect((result.error as HttpError).message).toBe('Erreur inconnue');
         }
       });
 
