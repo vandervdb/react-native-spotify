@@ -15,7 +15,7 @@
 
 ## 🚀 Aperçu
 
-Projet mobile construit avec :
+Projet mobile construit avec:
 
 - ⚛️ **React Native** (Metro)
 - 🧱 **Nx Monorepo**
@@ -63,14 +63,14 @@ nx run spotify-app:start --reset-cache
 
 ## ⚙️ Configuration `.env`
 
-Le projet supporte plusieurs environnements :
+Le projet supporte plusieurs environnements:
 
 ```
 .env.development
 .env.production
 ```
 
-Variables attendues (typage automatique via `env.d.ts`) :
+Variables attendues (typage automatique via `env.d.ts`):
 
 ```env
 SPOTIFY_CLIENT_ID=your-client-id
@@ -86,7 +86,7 @@ REDIRECT_URI=org-vander-myspotifyapp://callback
 nx g @nx/js:lib nom-librairie
 ```
 
-Ajoute ensuite un `babel.config.js` dans la lib :
+Ajoute ensuite un `babel.config.js` dans la lib:
 
 ```js
 // babel.config.js dans libs/ma-lib
@@ -104,7 +104,6 @@ module.exports = require('../../babel.shared');
 ## ✨ À venir
 
 - 🎧 Intégration Spotify App Remote SDK
-- 🔄 Refresh token automatique
 - 🧪 Tests unitaires + e2e
 - 📲 Animation du MiniPlayer
 - 🌐 Mode offline + cache local
@@ -187,7 +186,6 @@ Modular Jest configuration planned for each library.
 ### Roadmap
 
 - Spotify App Remote SDK integration
-- Automatic token refresh
 - Unit & e2e tests
 - MiniPlayer animation
 - Offline mode & local cache

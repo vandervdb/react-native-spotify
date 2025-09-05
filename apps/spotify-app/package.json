@@ -27,7 +27,11 @@
     "tslib": "*",
     "vite": "*",
     "react": "*",
-    "react-native": "*"
+    "react-native": "*",
+    "jest": "*",
+    "react-dom": "*",
+    "react-native-paper": "*",
+    "react-native-safe-area-context": "*"
   },
   "devDependencies": {},
   "peerDependencies": {

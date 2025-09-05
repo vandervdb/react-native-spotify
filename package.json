@@ -5,6 +5,10 @@
   "scripts": {},
   "private": true,
   "dependencies": {
+    "@react-native-vector-icons/material-design-icons": "^12.3.0",
+    "@react-navigation/elements": "^2.6.4",
+    "@react-navigation/native": "^7.1.17",
+    "@react-navigation/native-stack": "^7.3.26",
     "axios": "1.11.0",
     "lodash": "^4.17.21",
     "mobx": "^6.13.7",
@@ -16,7 +20,10 @@
     "react-native-get-random-values": "^1.11.0",
     "react-native-keychain": "^10.0.0",
     "react-native-logs": "^5.3.0",
-    "react-native-quick-crypto": "^0.7.14"
+    "react-native-paper": "^5.14.5",
+    "react-native-quick-crypto": "^0.7.14",
+    "react-native-safe-area-context": "^5.6.1",
+    "react-native-screens": "^4.16.0"
   },
   "devDependencies": {
     "@babel/core": "^7.14.5",

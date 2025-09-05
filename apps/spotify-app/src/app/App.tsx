@@ -1,4 +1,4 @@
-import DefaultApp from './DefaultApp';
+import DefaultApp from '../components/DefaultApp';
 import {
   AuthStoreContext,
   DefaultAuthStore,

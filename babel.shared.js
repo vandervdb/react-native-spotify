@@ -1,9 +1,15 @@
 const path = require('path');
+const { env } = require('babel-plugin-dotenv-import');
 
 module.exports = {
   presets: [
     ['module:@react-native/babel-preset', { useTransformReactJSX: true }],
   ],
+  env: {
+    production: {
+      plugins: ['react-native-paper/babel'],
+    },
+  },
   plugins: [
     [
       'module:react-native-dotenv',
