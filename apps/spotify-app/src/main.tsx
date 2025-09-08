@@ -1,5 +1,5 @@
 import './setup/polyfill';
 import { AppRegistry } from 'react-native';
-import { Root } from './app/Root';
+import AppContainer from './navigation/AppContainer';
 
-AppRegistry.registerComponent('SpotifyApp', () => Root);
+AppRegistry.registerComponent('SpotifyApp', () => AppContainer);

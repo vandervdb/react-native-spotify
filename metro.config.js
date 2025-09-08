@@ -20,9 +20,6 @@ module.exports = (async () => {
   } = await getDefaultConfig();
 
   return {
-    transformer: {
-      babelTransformerPath: require.resolve('react-native-svg-transformer'),
-    },
     resolver: {
       // on enlève 'svg' des assets normaux
       assetExts: assetExts.filter((ext) => ext !== 'svg'),

@@ -12,25 +12,33 @@ import {
 } from 'react-native';
 import Svg, { G, Path } from 'react-native-svg';
 import { observer } from 'mobx-react-lite';
-import { useAuthStore } from '@react-native-spotify/spotify-client';
+import {
+  SpotifyLogo,
+  useAuthStore,
+} from '@react-native-spotify/spotify-client';
 import { log } from '@react-native-spotify/core-logger';
+import { RootStackParamList } from '../types/navigation';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useNavigation } from '@react-navigation/native';
+
+type Navigation = NativeStackNavigationProp<RootStackParamList, 'Player'>;
 
 const TokenDisplay: FC = observer(() => {
   const authStore = useAuthStore();
+  const tokenString = authStore.token ? authStore.token : 'Chargement...';
   log.debug('TokenDisplay: ', authStore.token || 'Chargement...');
   return (
     <View style={styles.section}>
-      <Text>🪪 Token actuel : {authStore.token || 'Chargement...'}</Text>
+      <Text>`🪪 Token actuel : {tokenString}`</Text>
     </View>
-    // <View style={styles.section}>
-    //   <Text>🪪 Token actuel : test</Text>
-    // </View>
   );
 });
 
 export const DefaultApp = () => {
+  const navigation = useNavigation<Navigation>();
   const [whatsNextYCoord, setWhatsNextYCoord] = useState<number>(0);
   const scrollViewRef = useRef<null | ScrollView>(null);
+  // const { SpotifyLogo } = SpotifyIcons;
 
   return (
     <>
@@ -64,35 +72,16 @@ export const DefaultApp = () => {
           <View style={styles.section}>
             <View style={styles.hero}>
               <View style={styles.heroTitle}>
-                <Svg
-                  width={32}
-                  height={32}
-                  stroke="hsla(162, 47%, 50%, 1)"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <Path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
-                  />
-                </Svg>
-                <Text style={[styles.textLg, styles.heroTitleText]}>
-                  You're up and running
-                </Text>
+                <SpotifyLogo width={240} height={60}></SpotifyLogo>
               </View>
               <TouchableOpacity
                 style={styles.whatsNextButton}
                 onPress={() => {
-                  scrollViewRef.current?.scrollTo({
-                    x: 0,
-                    y: whatsNextYCoord,
-                  });
+                  navigation.navigate('Player');
                 }}
               >
                 <Text style={[styles.textMd, styles.textCenter]}>
-                  What's next?
+                  Spotyfy Player
                 </Text>
               </TouchableOpacity>
             </View>
