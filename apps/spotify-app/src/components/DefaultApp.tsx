@@ -81,7 +81,7 @@ export const DefaultApp = () => {
                 }}
               >
                 <Text style={[styles.textMd, styles.textCenter]}>
-                  Spotyfy Player
+                  Spotify Player
                 </Text>
               </TouchableOpacity>
             </View>

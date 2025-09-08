@@ -11,3 +11,7 @@ export * from './lib/spotify/SpotifyRestrictionsDto';
 export * from './lib/spotify/SpotifyTokenResponseDto';
 export * from './lib/spotify/SpotifyTrackDto';
 export * from './lib/spotify/SpotifyTracksDto';
+export * from './lib/spotify/SpotifyPlaybackActionsDto';
+export * from './lib/spotify/SpotifyContextDto';
+export * from './lib/spotify/SpotifyPlaybackActionsDto';
+export * from './lib/spotify/SpotifyPlaybackStateDto';

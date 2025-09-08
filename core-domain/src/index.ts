@@ -4,3 +4,8 @@ export * from './lib/storage/SecureStorage';
 export * from './lib/auth/AuthService';
 export * from './lib/types/Result';
 export * from './lib/http/errors';
+export * from './lib/queue/QueueClient';
+export * from './lib/playing/NowPlaying';
+export * from './lib/playing/NowPlayingService';
+export * from './lib/playing/NowPlayingClient';
+export * from './lib/playing/NowPlayingStore';
