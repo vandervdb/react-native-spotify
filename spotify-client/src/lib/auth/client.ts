@@ -4,9 +4,11 @@ import { log } from '@react-native-spotify/core-logger';
 import { authorize, AuthorizeResult } from 'react-native-app-auth';
 import { SpotifyTokenResponseDto } from '@react-native-spotify/core-dto';
 import { API_CONSTANTS } from '@react-native-spotify/core-constants';
-import { usePostApi } from '@react-native-spotify/http-client';
+import { CreatePostApiFn } from '@react-native-spotify/http-client';
 
 export class DefaultAuthClient implements AuthClient {
+  constructor(private readonly createApi: CreatePostApiFn) {}
+
   async getAuthorization(): Promise<AuthorizeResult | undefined> {
     log.debug('startAuthorization');
     const config = buildAuthConfig();
@@ -24,13 +26,13 @@ export class DefaultAuthClient implements AuthClient {
 
   async fetchRefreshToken(): Promise<Result<SpotifyTokenResponseDto>> {
     log.debug('getRefreshToken');
-    const getRefreshToken = usePostApi<SpotifyTokenResponseDto>(
+    const getRefreshToken = this.createApi<SpotifyTokenResponseDto>(
       API_CONSTANTS.API_BASE_V1,
       API_CONSTANTS.TOKEN,
       {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
     );
-    return await getRefreshToken();
+    return await getRefreshToken.post();
   }
 }

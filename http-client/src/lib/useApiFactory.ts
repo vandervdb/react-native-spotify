@@ -1,23 +1,7 @@
 import { useCallback, useMemo } from 'react';
-import type {
-  AuthService,
-  HttpError,
-  Result,
-} from '@react-native-spotify/core-domain';
+import type { AuthService, Result } from '@react-native-spotify/core-domain';
 import { createGetApi, createPostApi } from './apiFactory';
-
-type ApiMethod = 'get' | 'post';
-
-type ApiCall<T> = () => Promise<Result<T, HttpError>>;
-
-type ApiFactoryReturn<T> = Partial<Record<ApiMethod, ApiCall<T>>>;
-
-type ApiFactoryFn<T> = (
-  baseUrl: string,
-  url: string,
-  headers?: Record<string, string>,
-  authService?: AuthService,
-) => ApiFactoryReturn<T>;
+import { ApiFactoryFn, ApiMethod } from './types';
 
 export function useApiFactory<T>(
   method: ApiMethod,

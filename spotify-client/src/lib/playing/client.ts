@@ -1,23 +1,26 @@
 import { API_CONSTANTS } from '@react-native-spotify/core-constants';
-import { NowPlayingClient } from '@react-native-spotify/core-domain';
+import {
+  AuthService,
+  NowPlayingClient,
+} from '@react-native-spotify/core-domain';
 import { SpotifyPlaybackStateDto } from '@react-native-spotify/core-dto';
 import { log } from '@react-native-spotify/core-logger';
-import { useGetApi } from '@react-native-spotify/http-client';
-import { DefaultAuthService } from '../auth';
-import { useAuthStore } from '../shared';
+import { CreateGetApiFn } from '@react-native-spotify/http-client';
 
 export class DefaultNowPlayingClient implements NowPlayingClient {
-  private readonly authStore = useAuthStore();
-  authService = new DefaultAuthService(this.authStore);
+  constructor(
+    private readonly auth: AuthService,
+    private readonly createApi: CreateGetApiFn,
+  ) {}
 
   async fetchNowPlaying() {
     log.debug('fetchNowPlaying');
-    const getNowPlaying = useGetApi<SpotifyPlaybackStateDto>(
+    const getNowPlaying = this.createApi<SpotifyPlaybackStateDto>(
       API_CONSTANTS.API_BASE_V1,
-      API_CONSTANTS.PLAYER,
+      API_CONSTANTS.PLAYING,
       undefined,
-      this.authService,
+      this.auth,
     );
-    return await getNowPlaying();
+    return await getNowPlaying.get();
   }
 }

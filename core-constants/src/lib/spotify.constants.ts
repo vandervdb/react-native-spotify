@@ -18,6 +18,7 @@ export const API_CONSTANTS = {
   ME: API_ME,
   TOKEN: `token`,
   PLAYER: `player`,
+  PLAYING: `me/player/currently-playing`,
   QUEUE: `queue`,
 
   // Scopes

@@ -1,1 +1,1 @@
-export * from './RootStoreContext';
+export * from './rootStoreContext';

@@ -18,8 +18,7 @@ export class DefaultAuthStore implements AuthStore {
   error: Error | null = null;
 
   constructor(
-    private authClient: AuthClient,
-    private storage: SecureStorage<TokenData>,
+    private deps: { authClient: AuthClient; storage: SecureStorage<TokenData> },
   ) {
     makeAutoObservable(this, {
       authParams: observable,
@@ -27,11 +26,15 @@ export class DefaultAuthStore implements AuthStore {
       error: observable,
     });
 
-    this.loadToken().then(() => log.debug('Token initial chargé'));
+    this.loadToken().then(() => log.debug('Initial token loaded'));
   }
 
   get token(): string {
     return this.authParams.token;
+  }
+
+  setToken(token: string | null) {
+    this.authParams.token = token ?? '';
   }
 
   get isTokenValid(): boolean {
@@ -42,7 +45,7 @@ export class DefaultAuthStore implements AuthStore {
 
   async loadToken(): Promise<void> {
     if (this.tokenRefreshPromise) {
-      log.debug('Token déjà en cours de chargement, on attend la promesse...');
+      log.debug('Token already loading, waiting for promise...');
       return this.tokenRefreshPromise;
     }
 
@@ -53,18 +56,18 @@ export class DefaultAuthStore implements AuthStore {
       });
 
       try {
-        const stored = await this.storage.get();
+        const stored = await this.deps.storage.get();
         if (stored && stored.token && stored.expiresAt > Date.now()) {
           runInAction(() => {
             this.authParams = stored;
           });
-          log.debug('Token valide chargé depuis SecureStorage');
+          log.debug('Valid token loaded from SecureStorage');
         } else {
           await this.refreshAccessToken();
         }
       } catch (e) {
         runInAction(() => {
-          this.error = e instanceof Error ? e : new Error('Erreur inconnue');
+          this.error = e instanceof Error ? e : new Error('Unknown error');
           log.error('loadToken error:', e);
         });
       } finally {
@@ -88,35 +91,35 @@ export class DefaultAuthStore implements AuthStore {
 
     try {
       if (!this.authParams.refreshToken) {
-        const result = await this.authClient.getAuthorization();
+        const result = await this.deps.authClient.getAuthorization();
         tokenData = result ? mapAuthorizeResultToTokenData(result) : undefined;
       } else {
-        const response = await this.authClient.fetchRefreshToken();
+        const response = await this.deps.authClient.fetchRefreshToken();
         const dto = response.ok ? response.value : undefined;
         tokenData = dto ? mapSpotifyTokenResponseToTokenData(dto) : undefined;
       }
 
       if (!tokenData) {
-        throw new Error('Données du token invalides');
+        throw new Error('Invalid token data');
       }
 
       const validToken: TokenData = tokenData;
 
-      await this.storage.save(validToken);
+      await this.deps.storage.save(validToken);
 
       runInAction(() => {
         this.authParams = validToken;
         this.loading = false;
       });
 
-      log.debug('Token rafraîchi avec succès');
+      log.debug('Token refreshed successfully');
     } catch (error) {
       const errorMessage =
-        error instanceof Error ? error.message : 'Erreur inconnue';
+        error instanceof Error ? error.message : 'Unknown error';
 
       runInAction(() => {
-        log.error('Erreur lors du rafraîchissement du token:', errorMessage);
-        this.error = new Error('Erreur refresh token: ' + errorMessage);
+        log.error('Error refreshing token:', errorMessage);
+        this.error = new Error('Token refresh error: ' + errorMessage);
         this.loading = false;
       });
     }
