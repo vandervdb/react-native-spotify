@@ -9,3 +9,4 @@ export * from './lib/playing/NowPlaying';
 export * from './lib/playing/NowPlayingService';
 export * from './lib/playing/NowPlayingClient';
 export * from './lib/playing/NowPlayingStore';
+export * from './lib/track/TrackClient';

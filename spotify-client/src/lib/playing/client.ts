@@ -17,7 +17,7 @@ export class DefaultNowPlayingClient implements NowPlayingClient {
     log.debug('fetchNowPlaying');
     const getNowPlaying = this.createApi<SpotifyPlaybackStateDto>(
       API_CONSTANTS.API_BASE_V1,
-      API_CONSTANTS.PLAYING,
+      API_CONSTANTS.PLAYING_CURRENTLY,
       undefined,
       this.auth,
     );

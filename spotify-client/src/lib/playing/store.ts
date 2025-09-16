@@ -84,7 +84,7 @@ export class DefaultNowPlayingStore implements NowPlayingStore {
       const errorMessage = e instanceof Error ? e.message : 'Erreur inconnue';
       runInAction(() => {
         log.error('Error fetching no playing data:', errorMessage);
-        this.error = new Error('Nox playing error: ' + errorMessage);
+        this.error = new Error('Now playing error: ' + errorMessage);
         this.loading = false;
       });
     }
